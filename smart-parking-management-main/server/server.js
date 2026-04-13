@@ -2,11 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import helmet from 'helmet';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 // Import routes
 import authRoutes from './routes/auth.js';
@@ -41,28 +41,12 @@ const io = new Server(httpServer, {
 
 // Security middleware
 app.use(helmet({
-  contentSecurityPolicy: false,
+  contentSecurityPolicy: false, // Disable for development, enable in production
   crossOriginEmbedderPolicy: false
 }));
 
-// CORS - Cho phép cả localhost (dev) lẫn Render.com domain (production)
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:3000',
-  process.env.CLIENT_URL,
-].filter(Boolean);
-
-app.use(cors({
-  origin: (origin, callback) => {
-    // Cho phép không có origin (mobile apps, Postman)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.some(o => origin.startsWith(o))) {
-      return callback(null, true);
-    }
-    callback(new Error('Not allowed by CORS'));
-  },
-  credentials: true
-}));
+// Middleware
+app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -95,6 +79,13 @@ app.use('/api/surveillance', surveillanceRoutes);
 app.use('/api/2fa', twoFactorRoutes);
 app.use('/api/remote-auth', remoteCustomerAuthRoutes);
 
+// Serve React frontend build when deployed as one service
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const clientBuildPath = path.join(__dirname, '../client/dist');
+
+app.use(express.static(clientBuildPath));
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
@@ -105,23 +96,9 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// ── Serve React Build (Production) ──────────────────────
-if (process.env.NODE_ENV === 'production') {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname  = path.dirname(__filename);
-  const clientDist = path.join(__dirname, '..', 'client', 'dist');
-
-  app.use(express.static(clientDist));
-
-  // SPA fallback: moi route khong phai /api -> tra ve index.html
-  app.get('*', (req, res) => {
-    if (!req.path.startsWith('/api')) {
-      res.sendFile(path.join(clientDist, 'index.html'));
-    }
-  });
-
-  console.log(`📦 Serving React build from: ${clientDist}`);
-}
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientBuildPath, 'index.html'));
+});
 
 // Socket.IO for real-time updates
 io.on('connection', (socket) => {
