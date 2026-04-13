@@ -1,0 +1,417 @@
+/* ── Layout tổng ── */
+.checkout-panel {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.checkout-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+/* ── Mode toggle ── */
+.mode-toggle {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(15, 23, 42, 0.5);
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 0.75rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    color: var(--text-gray);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.mode-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--primary);
+    color: var(--text-light);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+}
+
+/* ── Camera section ── */
+.auto-mode {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.video-container {
+    position: relative;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    border: 2px solid rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
+}
+
+.video-feed {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── Scan overlay ── */
+.scan-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.scan-frame {
+    position: relative;
+    width: 70%;
+    height: 45%;
+}
+
+/* 4 góc vàng */
+.corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-color: #f59e0b;
+    border-style: solid;
+    border-width: 0;
+}
+.corner.tl { top: 0;    left: 0;  border-top-width: 3px;    border-left-width: 3px;  border-top-left-radius: 4px; }
+.corner.tr { top: 0;    right: 0; border-top-width: 3px;    border-right-width: 3px; border-top-right-radius: 4px; }
+.corner.bl { bottom: 0; left: 0;  border-bottom-width: 3px; border-left-width: 3px;  border-bottom-left-radius: 4px; }
+.corner.br { bottom: 0; right: 0; border-bottom-width: 3px; border-right-width: 3px; border-bottom-right-radius: 4px; }
+
+/* Đường quét */
+.scan-line {
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #6366f1, #a78bfa, #6366f1, transparent);
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.8);
+    animation: scanMove 1.6s ease-in-out infinite;
+    top: 27%;
+}
+
+@keyframes scanMove {
+    0%, 100% { transform: translateY(0px);    opacity: 1; }
+    50%       { transform: translateY(55px);   opacity: 0.9; }
+}
+
+/* ── Badge LIVE ── */
+.camera-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    backdrop-filter: blur(8px);
+}
+
+.badge-ready  { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
+.badge-loading{ background: rgba(245, 158, 11, 0.2);  color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+/* ── Status bar ── */
+.status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.status-ready    { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+.status-scanning { background: rgba(99, 102, 241, 0.1); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
+.status-idle     { background: rgba(15, 23, 42, 0.4);   color: var(--text-gray); border: 1px solid var(--border); }
+
+.confidence-badge {
+    background: rgba(99, 102, 241, 0.2);
+    color: #818cf8;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+/* ── Nút chụp ── */
+.btn-capture {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+}
+
+.btn-capture:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
+}
+
+.btn-capture:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-scanning {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    animation: pulse-btn 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-btn {
+    0%, 100% { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4); }
+    50%       { box-shadow: 0 4px 30px rgba(99, 102, 241, 0.7); }
+}
+
+/* Spinner nhỏ */
+.spinner-sm {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Instructions ── */
+.instructions {
+    background: rgba(99, 102, 241, 0.05);
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+    border: 1px dashed rgba(99, 102, 241, 0.35);
+    font-size: 0.85rem;
+}
+
+.instructions p {
+    color: var(--primary);
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+.instructions ul {
+    margin-left: 1.25rem;
+    color: var(--text-gray);
+}
+
+.instructions li {
+    margin: 0.2rem 0;
+}
+
+/* ── Form input ── */
+.plate-input {
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-align: center;
+    font-size: 1.25rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-gray);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.875rem;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-group input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.error-message {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+/* ── Bill thanh toán ── */
+.payment-details h3 {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.info-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(15, 23, 42, 0.3);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.info-item.fee {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.05) 100%);
+    border: 1px solid var(--primary);
+    padding: 1rem;
+}
+
+.info-item .label {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+.info-item .value {
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.info-item.fee .value {
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+/* ── QR Section ── */
+.qr-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.qr-section h4 {
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.qr-code {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+    border: 4px solid var(--primary);
+    border-radius: 12px;
+    margin: 0 auto;
+    display: block;
+}
+
+.qr-instruction {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* ── Buttons ── */
+.checkout-panel .btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.25s ease;
+}
+
+.btn-outline-primary:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .scan-frame { width: 85%; height: 40%; }
+    .mode-btn   { font-size: 0.85rem; padding: 0.6rem 0.4rem; }
+}

@@ -1,0 +1,129 @@
+.employee-login-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+}
+
+.login-container {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.5s ease;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.login-header p {
+    color: var(--text-gray);
+    font-size: 1rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.error-message {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: var(--danger);
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.form-group label {
+    display: block;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: rgba(30, 41, 59, 0.6);
+    border: 2px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(30, 41, 59, 0.8);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.form-group input::placeholder {
+    color: var(--text-gray);
+    opacity: 0.6;
+}
+
+.btn-block {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.login-footer p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    .login-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .login-header h1 {
+        font-size: 1.75rem;
+    }
+}

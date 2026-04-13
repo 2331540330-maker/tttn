@@ -1,0 +1,109 @@
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.header-content h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0 5rem;
+}
+
+.header-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+.app-nav {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+}
+
+.nav-btn {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-gray);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--primary);
+    color: var(--text-light);
+}
+
+.nav-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.app-main {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.parking-view {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 2rem;
+    height: calc(100vh - 250px);
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.right-panel {
+    overflow: auto;
+}
+
+.checkin-success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+    border-color: var(--success);
+}
+
+.checkin-success h3 {
+    color: var(--success);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.checkin-success p {
+    margin: 0.5rem 0;
+    color: var(--text-gray);
+}
+
+.checkin-success strong {
+    color: var(--text-light);
+}
+
+@media (max-width: 1200px) {
+    .parking-view {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+}

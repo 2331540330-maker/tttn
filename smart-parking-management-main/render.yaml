@@ -1,0 +1,19 @@
+# render.yaml - 1 service duy nhất: Node.js serve cả API lẫn React
+services:
+  - type: web
+    name: smart-parking-app
+    runtime: node
+    plan: free
+    buildCommand: npm install && cd client && npm install && npm run build && cd ..
+    startCommand: node server/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: PORT
+        value: 10000
+    healthCheckPath: /api/health
+    autoDeploy: true

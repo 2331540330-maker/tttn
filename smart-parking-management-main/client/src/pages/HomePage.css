@@ -1,0 +1,127 @@
+.home-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    padding: 2rem;
+}
+
+.home-container {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.home-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeIn 0.6s ease;
+}
+
+.home-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+}
+
+.option-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.option-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.6s ease;
+}
+
+.option-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.3);
+}
+
+.admin-card:hover {
+    border-color: var(--primary);
+}
+
+.customer-card:hover {
+    border-color: var(--success);
+}
+
+.card-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.option-card h2 {
+    font-size: 1.75rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.option-card p {
+    color: var(--text-gray);
+    margin-bottom: 1.5rem;
+}
+
+.features {
+    list-style: none;
+    text-align: left;
+    margin: 1.5rem 0;
+    padding: 0;
+}
+
+.features li {
+    color: var(--text-gray);
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.option-card .btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.home-footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .home-header h1 {
+        font-size: 2rem;
+    }
+
+    .option-cards {
+        grid-template-columns: 1fr;
+    }
+}

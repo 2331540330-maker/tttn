@@ -1,0 +1,225 @@
+.parking-map {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.map-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-light);
+}
+
+.legend {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+.legend-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 2px solid var(--border);
+}
+
+.legend-color.empty {
+    background: var(--success);
+}
+
+.legend-color.occupied {
+    background: var(--danger);
+}
+
+.map-grid {
+    flex: 1;
+    overflow: auto;
+    padding: 1rem;
+    background: rgba(15, 23, 42, 0.3);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.parking-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.row-label {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.row-slots {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.parking-slot {
+    width: 120px;
+    height: 80px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.parking-slot.empty {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.1) 100%);
+    border-color: var(--success);
+}
+
+.parking-slot.occupied {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(220, 38, 38, 0.1) 100%);
+    border-color: var(--danger);
+    animation: pulse 2s infinite;
+}
+
+.parking-slot:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    border-color: var(--primary);
+}
+
+.parking-slot.highlighted {
+    animation: blink 0.5s ease 3;
+    border-color: var(--warning);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+
+/* Camera surveillance slot (C3) */
+.parking-slot.camera-slot {
+    border-color: #22d3ee !important;
+    box-shadow: 0 0 12px #22d3ee40;
+}
+
+.parking-slot.camera-slot.empty {
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.12) 0%, rgba(6, 182, 212, 0.06) 100%);
+}
+
+.parking-slot.camera-slot.occupied {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(34, 211, 238, 0.15) 100%);
+    animation: pulse-cam 2s infinite;
+}
+
+@keyframes pulse-cam {
+    0%, 100% { box-shadow: 0 0 10px #22d3ee50; }
+    50% { box-shadow: 0 0 20px #22d3ee90, 0 0 8px #f8717140; }
+}
+
+.cam-icon {
+    font-size: 0.65rem;
+    margin-left: 3px;
+    vertical-align: super;
+}
+
+.slot-id {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slot-plate {
+    font-size: 0.75rem;
+    color: var(--text-gray);
+    text-align: center;
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    margin-top: 0.25rem;
+}
+
+.slot-icon {
+    font-size: 1.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.3;
+}
+
+.map-stats {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+    background: rgba(99, 102, 241, 0.05);
+    border-radius: 8px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-gray);
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.stat-value.success {
+    color: var(--success);
+}
+
+.stat-value.primary {
+    color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .parking-slot {
+        width: 90px;
+        height: 70px;
+    }
+
+    .row-slots {
+        gap: 0.5rem;
+    }
+}
