@@ -1,0 +1,2 @@
+# This folder is required for AI model files.
+# Add your ONNX model at client/public/models/yolov8n.onnx

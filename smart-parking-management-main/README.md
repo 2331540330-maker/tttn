@@ -170,6 +170,9 @@ python download_model.py
 python download_lpr_model.py
 ```
 
+> Lưu ý: Thư mục `client/public/models` phải tồn tại trước khi chạy deploy.
+> Render không nên chứa file `.onnx` lớn trực tiếp trong Git, nên bạn cần đặt model `yolov8n.onnx` thủ công vào `client/public/models`.
+
 ### Bước 5: Khởi động dự án
 
 **Development mode (tất cả cùng lúc):**
